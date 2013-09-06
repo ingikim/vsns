@@ -1,0 +1,15 @@
+<div class="comment" id ="comment_<%= comment.id %>">
+  <div class="comment-content">
+    <%= comment.body %>
+  </div>
+  <div class='info'>
+    <span id='like_<%= comment.id %>' class='like'>
+      <%= render 'layouts/shared/like_status', likeable: comment %>
+    </span>,
+
+    <%= comment.owner.email %>
+    <%= time_ago_in_words(comment.created_at) %>
+    <%= link_to(raw("<i class='icon-trash'></i>"), polymorphic_path([comment.commentable, comment]), data:{:confirm => 'Are you sure?'}, :method => :delete, :remote => true) if comment.updatable_by? current_user  %>
+  </div>
+
+</div>
